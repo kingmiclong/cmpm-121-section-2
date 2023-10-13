@@ -5,7 +5,6 @@ import './style.css'
 const dino = document.getElementById("dino")
 const cactus = document.getElementById("cactus")
 const bird = document.getElementById("bird")
-const bird1 = document.getElementById("bird1")
 
 const scoreText = document.getElementById("scoreText")
 let score = 0
@@ -68,7 +67,6 @@ function RemoveObstacles()
 {
     cactus?.classList.remove("cactusMove")
     bird?.classList.remove("birdMove")
-    bird1?.classList.remove("birdMove1")
 }
 
 
@@ -86,10 +84,6 @@ function CheckGameOver()
         //get bird position
         let birdLeft = parseInt(window.getComputedStyle(bird).getPropertyValue("left"))
 
-        //get bird position
-        let bird1Left = parseInt(window.getComputedStyle(bird).getPropertyValue("left"))
-        
-
         //detect cactus collision
         if(dinoTop >= 150 && Math.abs(cactusLeft) < 7)
         {
@@ -106,7 +100,7 @@ function CheckGameOver()
         }
 
         //detect bird collision
-        if(dinoTop <= 80 && dinoTop >= -20 && birdLeft >= -60 && birdLeft <= 60 && bird1Left >= -60 && bird1Left <= 60)
+        if(dinoTop <= 80 && dinoTop >= -20 && birdLeft >= -60 && birdLeft <= 60)
         {
             //end game
             console.log("player died!")
@@ -131,7 +125,6 @@ function startGame()
     score = 0
     cactus?.classList.add("cactusMove")
     bird?.classList.add("birdMove")
-    bird1?.classList.add("birdMove1")
 }
 
 function setText(s: string)
