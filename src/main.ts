@@ -5,10 +5,12 @@ import './style.css'
 const dino = document.getElementById("dino")
 const cactus = document.getElementById("cactus")
 const bird = document.getElementById("bird")
+const bird1 = document.getElementById("bird1");
+const cactus1 = document.getElementById("cactus1");
 
 const scoreText = document.getElementById("scoreText")
 let score = 0
-let currentSpeed = 1;  // Initial speed, you can adjust this
+let currentSpeed = 1;  
 setText("click to start!")
 
 
@@ -67,13 +69,15 @@ function RemoveObstacles()
 {
     cactus?.classList.remove("cactusMove")
     bird?.classList.remove("birdMove")
+    bird1?.classList.remove("bird1Move");
+    cactus1?.classList.remove("cactus1Move");
 }
 
 
 function CheckGameOver()
 {
     
-    if(gameOver == false && dino != null && cactus != null && bird != null)
+    if(gameOver == false && dino != null && cactus != null && bird != null  && bird1 != null && cactus1 != null)
     {
         //get is dinosaur jumping
         let dinoTop = parseInt(window.getComputedStyle(dino).getPropertyValue("top"))
@@ -84,8 +88,11 @@ function CheckGameOver()
         //get bird position
         let birdLeft = parseInt(window.getComputedStyle(bird).getPropertyValue("left"))
 
+        let bird1Left = parseInt(window.getComputedStyle(bird1).getPropertyValue("left"));
+        let cactus1Left = parseInt(window.getComputedStyle(cactus1).getPropertyValue("left"));
+
         //detect cactus collision
-        if(dinoTop >= 150 && Math.abs(cactusLeft) < 7)
+        if(dinoTop >= 150 && (Math.abs(cactusLeft) < 7 || Math.abs(cactus1Left) < 7))
         {
             //end game
             console.log("player died!")
@@ -95,12 +102,13 @@ function CheckGameOver()
             //reset player
             RemoveJump()
             
-            //reset cactus
+            //reset cactus and birds
             RemoveObstacles()
         }
 
         //detect bird collision
-        if(dinoTop <= 80 && dinoTop >= -20 && birdLeft >= -60 && birdLeft <= 60)
+        if(dinoTop <= 80 && dinoTop >= -20 && 
+        (birdLeft >= -60 && birdLeft <= 60 || bird1Left >= -60 && bird1Left <= 60))
         {
             //end game
             console.log("player died!")
@@ -110,7 +118,7 @@ function CheckGameOver()
             //reset player
             RemoveJump()
             
-            //reset cactus
+            //reset cactus and birds
             RemoveObstacles()
         }
         console.log(`Dino top: ${dinoTop}, Cactus left: ${cactusLeft}, Bird left: ${birdLeft}`);
@@ -125,6 +133,8 @@ function startGame()
     score = 0
     cactus?.classList.add("cactusMove")
     bird?.classList.add("birdMove")
+    bird1?.classList.add("bird1Move");
+    cactus1?.classList.add("cactus1Move");
 }
 
 function setText(s: string)
